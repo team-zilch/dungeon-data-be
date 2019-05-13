@@ -33,6 +33,7 @@ function homePage(request, response){
 function monsterData(request, response){
   superagent.get('http://dnd5eapi.co/api/monsters')
     .then(result => {
+
       const monsterData = result.body.results;
       let monsterArr = [];
       monsterData.forEach(element => {
@@ -43,6 +44,7 @@ function monsterData(request, response){
       // let insertStatement = 'INSERT INTO dungeons (name,url) VALUES($1,$2);';
       // let insertValues =[monster.name,monster.url]
       response.send(monsterArr);
+
     })
     .catch(err => handleError(err, response));
   // response.send('monster route works');

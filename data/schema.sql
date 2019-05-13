@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS monsters
+
+CREATE TABLE IF NOT EXISTS monsters (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255),
+  url VARCHAR(255)
+);
