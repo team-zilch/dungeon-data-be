@@ -33,12 +33,18 @@ function homePage(request, response){
 function monsterData(request, response){
   superagent.get('http://dnd5eapi.co/api/monsters')
     .then(result => {
-      const monsterData = result.body;
-      console.log(`results from api call ${result.body}`);
-      let monster = new Monsters(monsterData);
-      console.log(monsterData.results[0].name);
-      console.log(monsterData.results[0].url);
-      response.send(monster);
+
+      const monsterData = result.body.results;
+      let monsterArr = [];
+      monsterData.forEach(element => {
+        console.log(element.name, element.url);
+        let monster = new Monsters(element.name, element.url);
+        monsterArr.push(monster);
+      });
+      // let insertStatement = 'INSERT INTO dungeons (name,url) VALUES($1,$2);';
+      // let insertValues =[monster.name,monster.url]
+      response.send(monsterArr);
+
     })
     .catch(err => handleError(err, response));
   // response.send('monster route works');
