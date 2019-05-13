@@ -103,7 +103,6 @@ Give proper credits. This could be a link to any repo which inspired you to buil
 TA's from codefellows
 
 
-
 ##Conflict plan
  What will your group do when it encounters conflict?
    Majority vote determines course of action
