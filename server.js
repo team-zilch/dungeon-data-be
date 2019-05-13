@@ -31,23 +31,32 @@ function homePage(request, response){
 }
 
 function monsterData(request, response){
-  return superagent.get('http://dnd5eapi.co/api/monsters')
+  superagent.get('http://dnd5eapi.co/api/monsters')
     .then(result => {
       const monsterData = result.body;
-      console.log(monsterData);
-      response.send(monsterData);
-    });
-  
+      console.log(`results from api call ${result.body}`);
+      let monster = new Monsters(monsterData);
+      console.log(monsterData.results[0].name);
+      console.log(monsterData.results[0].url);
+      response.send(monster);
+    })
+    .catch(err => handleError(err, response));
   // response.send('monster route works');
 }
 
 //---------Constructor functions--------------------------------------->
 
-// function monster(){
-  
-// }
+function Monsters(name, url){
+  this.name = name;
+  this.url = url;
+}
 
 //--------Helper functions------------------------------------------>
+
+function handleError(err, response){
+  console.error(err);
+  if(response) response.status(500).send('Sorry, something went wrong');
+}
 
 // function queryDB(queryData, response){
 //   let sqlStatement = ;
