@@ -21,7 +21,7 @@ A short description of the motivation behind the creation and maintenance of the
    As a user, I'd like to be able to find game information in case I need to reference a rule and even learn about the game for the first time.
    As a user, I'd like to have live updated cards for the dungeon master to refer to during game play versus flipping through cards.
    As a user, I'd like to be able to search for any card beyond the cards initially presented to me.
-   
+
  ##Stretch Goal User Stories
    As a user, I’d like to know about current and upcoming events – google api for user location
    As a user, I'd like to be able to filter the cards by abilities or other monster details.
@@ -100,6 +100,7 @@ $ npm start```
 Give proper credits. This could be a link to any repo which inspired you to build this project, any blogposts or links to people who contrbuted in this project.
 
 #### Anything else that seems useful
+TA's from codefellows
 
 
 
