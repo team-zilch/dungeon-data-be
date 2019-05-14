@@ -3,10 +3,7 @@
 David Marchante, 
 Kush Shrestha, 
 Chaitanya Narukulla, 
-William Fritts
-
-## Motivation
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+William Fritts.
 
 ## Description:
  This application will serve as a user hub for dungeon masters to be able to obtain the most up to date monster information on playing cards. The user will be able to enter their location and be given a listing of current events/news in their location. The user will be able to scroll through the monster compendium
@@ -34,11 +31,12 @@ A short description of the motivation behind the creation and maintenance of the
  User stretch goal to have additional game stat information
 
 ## Build status
-Build status of continus integration V 0.0.1
+Build status of continus integration V 1.2.1
 
-William Fritts [11:02 AM]
+William Fritts [11:02 AM] version 1.0.0
+Chaitanya Narukulla [12:30] version 1.1.1
 
-## Front end
+## Front end for this back end server
  https://github.com/team-zilch/dungeon-data-fe
  
 ## Screenshots
@@ -47,10 +45,15 @@ Include logo/demo screenshot etc.
 ## Tech/framework used
 Ex. -
 
-<b>Built with</b>
-- [node.js]()
-- [express]()
-- [nodemon]()
+<b>Built Back-end with</b>
+- [Heroku]
+- [node.js]
+- [express]
+- [nodemon]
+- [superagent]
+- [pg]
+- [ cors  ]
+- [blue host for web hosting]
 
 ## Features
 What makes your project stand out?
@@ -72,54 +75,34 @@ $ npm install express```
 Follow [our installing guide](http://expressjs.com/en/starter/installing.html)
 for more information.
 
-
 ## Quick Start
-## How to use?
 
- The quickest way to get started with express is to utilize the executable [`express(1)`](https://github.com/expressjs/generator) to generate an application as shown below:
+## How to use
 
- Install the executable. The executable's major version will match Express's:
-
+step1: run  command in command promt
 ```bash
-$ npm install -g express-generator@4```
+  git clone https://github.com/team-zilch/dungeon-data-be.git ```
 
- Install dependencies:
-
+step2: Install dependencies:
 ```bash
-$ npm install```
+$ npm install  i ```
 
- Start the server:
+Step3: Start server
+ ```bash
+ node server.js```
 
-```bash
-$ npm start```
-
-## API Reference
+## API Reference:
+API from :
+http://dnd5eapi.co/api/monsters
+ 
+Monster Art from :
+http://www.iwozhere.com/SRD/Gallery.html
 
 
 ## Credits
-Give proper credits. This could be a link to any repo which inspired you to build this project, any blogposts or links to people who contrbuted in this project.
-
-#### Anything else that seems useful
-TA's from codefellows
-
-
-##Conflict plan
- What will your group do when it encounters conflict?
-   Majority vote determines course of action
- How will you raise concerns to members who are not adequately contributing?
-   Communication. As we’re all adults, it shouldn’t be an issue to directly communicate with any trouble that arises. Address cordially person to person initially. If trouble continues, involve group. If trouble continues, involve TA or instructor.
- What is your process to resolve conflicts?
-   Approach problem head on, one on one. Involve group if need arises. Involve TA’s/instructor if mechanisms require.
- How and when will you escalate the conflict if your attempts are unsuccessful?
-   First level of escalation is to the full group. Problems should be taken to full group for vote immediately if one on one cannot be resolved. If there is still issue after group vote, TA’s/Instructor should be requested for mediation immediately. Better to resolve any conflict as soon as possible to prevent prolonged disruption to project.
-
-##Communication Plan
- How will you communicate after hours and on the weekend?
-   Communication after hours will be through the group slack channel.
- What is your strategy for ensuring everyones voices are heard?
-   Round table discussion on feature aspects.
- How will you ensure that you are creating a safe environment where everyone feels comfortable speaking up?
-   Everyone will have a chance to speak up, all opinions will be sought before decisions are finalized. Ultimately, a group vote will determine a course of action.
+Codefellows T.A's
+http://dnd5eapi.co/api/monsters
+http://www.iwozhere.com/SRD/Gallery.html
  
  ## License
    MIT

@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS monsters;
+DROP TABLE monsters;
 
-CREATE TABLE IF NOT EXISTS monsters (
+CREATE TABLE monsters (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
   size VARCHAR(255),
