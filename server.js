@@ -48,16 +48,18 @@ function monsterData(request, response){
         .then(result => {
           const monsterData = result.body.results;
           Promise.all(monsterData.map(element => {
-            superagent.get(element.url)
+            return superagent.get(element.url)
               .then(result => {
                 let monster = new Monsters(result.body.name, result.body.size, result.body.type, result.body.armor_class, result.body.hit_points, result.body.hit_dice, result.body.challenge_rating);
-                // console.log(monster.name);
                 monsterArr.push(monster);
-              //insert new monster into database
-              // insertIntoDB(monster);
+                console.log(monster);
+                //insert new monster into database
+                insertIntoDB(monster);
               });
           }))
-            .then(response.send(monsterArr));
+            .then(result => {
+              response.send(monsterArr);
+            });
         })
         .catch(err => handleError(err, response));
     }
