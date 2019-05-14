@@ -18,7 +18,8 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 
 //----------Global Variables------------------------------------------>
-const baseUrl = 'http://dnd5eapi.co/api/monsters';
+const baseUrl = 'http://dnd5eapi.co/api/monsters/';
+let monsterArr = [];
 
 //--------Routes------------------------------------------------------->
 app.get('/', homePage);
@@ -31,31 +32,41 @@ function homePage(request, response){
 }
 
 function monsterData(request, response){
-  superagent.get('http://dnd5eapi.co/api/monsters')
-    .then(result => {
-
-      const monsterData = result.body.results;
-      let monsterArr = [];
-      monsterData.forEach(element => {
-        console.log(element.name, element.url);
-        let monster = new Monsters(element.name, element.url);
-        monsterArr.push(monster);
-      });
-      // let insertStatement = 'INSERT INTO dungeons (name,url) VALUES($1,$2);';
-      // let insertValues =[monster.name,monster.url]
-      response.send(monsterArr);
-
-    })
-    .catch(err => handleError(err, response));
+  try {
+    superagent.get('http://dnd5eapi.co/api/monsters')
+      .then(result => {
+        const monsterData = result.body.results;
+        Promise.all(monsterData.map(element => {
+          superagent.get(element.url)
+            .then(result => {
+              let monster = new Monsters(result.body.name, result.body.size, result.body.type, result.body.armor_class, result.body.hit_points, result.body.hit_dice, result.body.challenge_rating);
+              monsterArr.push(monster);
+            });
+        }))
+          .then(response.send(monsterArr));
+      })
+      .catch(err => handleError(err, response));
+  }
+  catch(error) {
+    handleError(error);
+  }
   // response.send('monster route works');
 }
 
+
 //---------Constructor functions--------------------------------------->
 
-function Monsters(name, url){
+function Monsters(name, size, type, armor_class, hit_points, hit_dice, challenge_rating){
   this.name = name;
-  this.url = url;
+  this.size = size;
+  this.type = type;
+  this.armor_class = armor_class;
+  this.hit_points = hit_points;
+  this.hit_dice = hit_dice;
+  this.challenge_rating = challenge_rating;
 }
+
+
 
 //--------Helper functions------------------------------------------>
 
