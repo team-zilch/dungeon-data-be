@@ -40,7 +40,10 @@ function monsterData(request, response){
           superagent.get(element.url)
             .then(result => {
               let monster = new Monsters(result.body.name, result.body.size, result.body.type, result.body.armor_class, result.body.hit_points, result.body.hit_dice, result.body.challenge_rating);
+              console.log(monster.name);
               monsterArr.push(monster);
+              //insert new monster into database
+              insertIntoDB(monster);
             });
         }))
           .then(response.send(monsterArr));
@@ -80,9 +83,11 @@ function handleError(err, response){
 //   let value = ;
 // }
 
-// function insertIntoDB(queryData, response){
-
-// }
+function insertIntoDB(data){
+  let insertStatement = 'INSERT INTO monsters (name, size, type, armor_class, hit_points, hit_dice, challenge_rating) VALUES ($1, $2, $3, $4, $5, $6, $7);';
+  let insertValue = [data.name, data.size, data.type, data.armor_class, data.hit_points, data.hit_dice, data.challenge_rating];
+  client.query(insertStatement, insertValue);
+}
 
 
 app.use('*', (request,response) => response.send('Sorry , That route dosent exit. '));
