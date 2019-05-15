@@ -16,6 +16,12 @@ app.use(express.static('./public'));
 let monsterArr = [];
 
 //---------Constructor functions--------------------------------------->
+function Event(event) {
+  this.link = event.url;
+  this.event_name = event.name.text;
+  this.event_date = new Date(event.start.local).toString().slice(0, 15);
+  this.summary = event.summary;
+}
 
 function Monsters(name, size, type, armor_class, hit_points, hit_dice, challenge_rating){
   this.name = name;
@@ -34,6 +40,7 @@ client.connect();
 //--------Routes------------------------------------------------------->
 app.get('/', homePage);
 app.get('/monster', monsterData);
+app.get('/events', eventData);
 
 //-------Route Functions---------------------------------------------->
 function homePage(request, response){
@@ -72,8 +79,28 @@ function monsterData(request, response){
   }
 }
 
-//--------Helper functions------------------------------------------>
+function eventData(request, response) {
+  // const eventLocation = request.query.data.search_query;
+  // const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENTBRITE_API_KEY}&location.address=${eventLocation}`;
+  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENTBRITE_API_KEY}&categories=119&location.address=seattle`;
 
+  return superagent.get(url)
+    .then(result => {
+      console.log(result.body.events);
+      const events = result.body.events.map(eventData => {
+        let newEvent = new Event(eventData);
+        let insertStatement = 'INSERT INTO events (link, event_name, event_date, summary, location_id)  VALUES ($1, $2, $3, $4, $5)';
+        let insertValues = [newEvent.link, newEvent.event_name, newEvent.event_date, newEvent.summary, request.query.data.id];
+        client.query(insertStatement, insertValues);
+
+        return newEvent;
+      });
+      response.send(events);
+    })
+    .catch(error => handleError(error, response));
+}
+
+//--------Helper functions------------------------------------------>
 function handleError(err, response){
   console.error(err);
   if(response) response.status(500).send('Sorry, something went wrong');
