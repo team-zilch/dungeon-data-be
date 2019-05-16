@@ -15,21 +15,21 @@ app.use(express.static('./public'));
 //----------Global Variables------------------------------------------>
 let monsterArr = [];
 
-//---------Constructor functions--------------------------------------->
+//---------Constructor functions----------------------------------------
+function Monsters(result){
+  this.name = result.name;
+  this.size = result.size;
+  this.type = result.type;
+  this.armor_class = result.armor_class;
+  this.hit_points = result.hit_points;
+  this.hit_dice = result.hit_dice;
+  this.challenge_rating = result.challenge_rating;
+}
+
 function Event(event) {
   this.event_name = event.name.text;
   this.link = event.url;
   this.summary = event.summary;
-}
-
-function Monsters(name, size, type, armor_class, hit_points, hit_dice, challenge_rating){
-  this.name = name;
-  this.size = size;
-  this.type = type;
-  this.armor_class = armor_class;
-  this.hit_points = hit_points;
-  this.hit_dice = hit_dice;
-  this.challenge_rating = challenge_rating;
 }
 
 //-------Database Setup------------------------------------------------>
@@ -48,22 +48,23 @@ function homePage(request, response){
 
 //Making API Call to get MonsterDAta
 function monsterData(request, response){
+  const monsterUrl = 'http://dnd5eapi.co/api/monsters';
   if(monsterArr.length === 0){
     try {
-      superagent.get('http://dnd5eapi.co/api/monsters')
+      superagent.get(monsterUrl)
         .then(result => {
           const monsterData = result.body.results;
           Promise.all(monsterData.map(element => {
             return superagent.get(element.url)
               .then(result => {
-                let monster = new Monsters(result.body.name, result.body.size, result.body.type, result.body.armor_class, result.body.hit_points, result.body.hit_dice, result.body.challenge_rating);
+                let monster = new Monsters(result.body);
                 monsterArr.push(monster);
-                console.log(monster);
+
                 //insert new monster into database
                 insertIntoDB(monster);
               });
           }))
-            .then(result => {
+            .then(() => {
               response.send(monsterArr);
             });
         })
@@ -72,7 +73,6 @@ function monsterData(request, response){
     catch(error) {
       handleError(error);
     }
-  // response.send('monster route works');
   } else{
     response.send(monsterArr);
   }
@@ -86,9 +86,10 @@ function eventData(request, response) {
       console.log(result.body.events);
       const events = result.body.events.map(event => {
         let newEvent = new Event(event);
-        //   let insertStatement = 'INSERT INTO events (link, event_name, event_date, summary, location_id)  VALUES ($1, $2, $3, $4, $5)';
-        //   let insertValues = [newEvent.link, newEvent.event_name, newEvent.event_date, newEvent.summary, request.query.data.id];
-        //   client.query(insertStatement, insertValues);
+        // let insertStatement = 'INSERT INTO events (event_name, link, summary)  VALUES ($1, $2, $3)';
+        // let insertValues = [ newEvent.event_name, newEvent.link, newEvent.summary];
+
+        // client.query(insertStatement, insertValues);
 
         return newEvent;
       });
