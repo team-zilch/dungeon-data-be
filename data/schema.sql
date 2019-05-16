@@ -1,4 +1,4 @@
-DROP TABLE monsters;
+DROP TABLE monsters, events;
 
 CREATE TABLE monsters (
   id SERIAL PRIMARY KEY,
@@ -9,4 +9,10 @@ CREATE TABLE monsters (
   hit_points VARCHAR(255),
   hit_dice VARCHAR(255),
   challenge_rating VARCHAR(255)
+);
+
+CREATE TABLE events (
+  event_name VARCHAR(255),
+  link VARCHAR (255),
+  summary VARCHAR (255),
 );
