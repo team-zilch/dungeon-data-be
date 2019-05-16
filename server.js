@@ -17,9 +17,8 @@ let monsterArr = [];
 
 //---------Constructor functions--------------------------------------->
 function Event(event) {
-  this.link = event.url;
   this.event_name = event.name.text;
-  this.event_date = new Date(event.start.local).toString().slice(0, 15);
+  this.link = event.url;
   this.summary = event.summary;
 }
 
@@ -80,18 +79,16 @@ function monsterData(request, response){
 }
 
 function eventData(request, response) {
-  // const eventLocation = request.query.data.search_query;
-  // const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENTBRITE_API_KEY}&location.address=${eventLocation}`;
-  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENTBRITE_API_KEY}&categories=119&location.address=seattle`;
+  const url = `https://www.eventbriteapi.com/v3/events/search?token=${process.env.EVENTBRITE_API_KEY}&q=dungeons&location.address=seattle`;
 
   return superagent.get(url)
     .then(result => {
       console.log(result.body.events);
-      const events = result.body.events.map(eventData => {
-        let newEvent = new Event(eventData);
-        let insertStatement = 'INSERT INTO events (link, event_name, event_date, summary, location_id)  VALUES ($1, $2, $3, $4, $5)';
-        let insertValues = [newEvent.link, newEvent.event_name, newEvent.event_date, newEvent.summary, request.query.data.id];
-        client.query(insertStatement, insertValues);
+      const events = result.body.events.map(event => {
+        let newEvent = new Event(event);
+        //   let insertStatement = 'INSERT INTO events (link, event_name, event_date, summary, location_id)  VALUES ($1, $2, $3, $4, $5)';
+        //   let insertValues = [newEvent.link, newEvent.event_name, newEvent.event_date, newEvent.summary, request.query.data.id];
+        //   client.query(insertStatement, insertValues);
 
         return newEvent;
       });
