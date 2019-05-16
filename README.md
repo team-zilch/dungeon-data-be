@@ -104,6 +104,71 @@ To create a heroku instance and deploy this backend on Heroku, run the following
 ## API Reference:
 API from :
 http://dnd5eapi.co/api/monsters
+  Sample Response first API Call:
+    {
+      "count": 325,
+      "results": [
+      {
+      "name": "Aboleth",
+      "url": "http://www.dnd5eapi.co/api/monsters/1"
+      }
+    }
+
+  Sample Response second API Call(example url:http://www.dnd5eapi.co/api/monsters/1):
+    {
+      "_id": "5bce91465b7768e7920181a5",
+      "index": 1,
+      "name": "Aboleth",
+      "size": "Large",
+      "type": "aberration",
+      "subtype": "",
+      "alignment": "lawful evil",
+      "armor_class": 17,
+      "hit_points": 135,
+      "hit_dice": "18d10",
+      "speed": "10 ft., swim 40 ft.",
+      "strength": 21,
+      "dexterity": 9,
+      "constitution": 15,
+      "intelligence": 18,
+      "wisdom": 15,
+      "constitution_save": 6,
+      "intelligence_save": 8,
+      "wisdom_save": 6,
+      "history": 12,
+      "perception": 10,
+      "damage_vulnerabilities": "",
+      "damage_resistances": "",
+      "damage_immunities": "",
+      "condition_immunities": "",
+      "senses": "darkvision 120 ft., passive Perception 20",
+      "languages": "Deep Speech, telepathy 120 ft.",
+      "challenge_rating": 10,
+      "special_abilities": [],
+      "actions": [],
+      "legendary_actions": [],
+      "url": "http://www.dnd5eapi.co/api/monsters/1"
+    }
+
+Example Schema:
+  DROP TABLE monsters, events;
+
+  CREATE TABLE monsters (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    size VARCHAR(255),
+    type VARCHAR(255),
+    armor_class VARCHAR(255),
+    hit_points VARCHAR(255),
+    hit_dice VARCHAR(255),
+    challenge_rating VARCHAR(255)
+  );
+
+  CREATE TABLE events (
+    event_name VARCHAR(255),
+    link VARCHAR (255),
+    summary VARCHAR (255),
+  );
  
 Monster Art from :
 http://www.iwozhere.com/SRD/Gallery.html
