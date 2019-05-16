@@ -5,11 +5,15 @@ Kush Shrestha,
 Chaitanya Narukulla, 
 William Fritts.
 
-## Description:
- This application will serve as a user hub for dungeon masters to be able to obtain the most up to date monster information on playing cards. The user will be able to enter their location and be given a listing of current events/news in their location. The user will be able to scroll through the monster compendium
+##
+Dungeon Data Organization
+https://github.com/team-zilch
 
- ##Project Scope
- The MVP for this project is to give the user access to monster cards created from the dungeons and dragon’s API data which allows for current monster information versus a static physical deck of cards which could potentially be outdated with updates. The user will have the ability to favorite cards which will be displayed first at the top of the page underneath the current events based off of the user’s location.
+## Description:
+ This application will serve as a user hub for dungeon masters to be able to obtain the most up to date monster information on playing cards. The user will be presented with all monster cards and have access to instructions about the game. The user will also be presented with Dungeon and Dragons events. 
+
+##Problem Domain
+  One of the big problems with card-based games is that as cards are updated, users are required to buy new cards in order to keep up to date with their monsters' abilities. This application will solve that problem by pulling current information from the API and displaying up to date monster information in the form of digital cards which the user can flip through.  
 
  ##User stories
  MVP User Stories
@@ -17,12 +21,11 @@ William Fritts.
    As a user, I'd like to be able to easily find information about the creators of the application.
    As a user, I'd like to be able to find game information in case I need to reference a rule and even learn about the game for the first time.
    As a user, I'd like to have live updated cards for the dungeon master to refer to during game play versus flipping through cards.
-   As a user, I'd like to be able to search for any card beyond the cards initially presented to me.
+   As a user, I'd like to be able to sort cards.
 
  ##Stretch Goal User Stories
    As a user, I’d like to know about current and upcoming events – google api for user location
    As a user, I'd like to be able to filter the cards by abilities or other monster details.
-   As a user, I'd like to be able to sort the cards by monster.
 
 #Stretch goals
  Current Events/news
@@ -90,6 +93,13 @@ $ npm install  i ```
 Step3: Start server
  ```bash
  node server.js```
+
+### Deployment
+To create a heroku instance and deploy this backend on Heroku, run the following commands:
+  ```heroku create```
+  ```git push heroku master```
+  ```heroku addons:create heroku-postgresql```
+  ```heroku pg:psql < schema.sql```
 
 ## API Reference:
 API from :
